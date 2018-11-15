@@ -1,1 +1,1 @@
-web: gunicorn mailsender:app
+web: gunicorn anonymousemail:app
