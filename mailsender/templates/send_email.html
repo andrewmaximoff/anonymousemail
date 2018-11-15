@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Send letter{% endblock %}
+{% block content %}
+  <div class="container content center-align">
+    <div class="row">
+      <h1>MailSender</h1>
+      <blockquote class="left-align">
+        Anonymous email.
+        We don’t store your personal mail. Ever.
+      </blockquote>
+    </div>
+
+    <div class="row">
+      <div class="materialert warning alert" id="alert-error" style="display: none">
+        <h5 id="alert-error"></h5>
+      </div>
+      <div class="materialert success alert" id="alert-success" style="display: none">
+        <h5 id="alert-success"></h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <form id="send-form" method="post">
+
+        <!-- Email input-->
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="emailInput" type="email" class="validate" name="email">
+            <label for="emailInput">Email</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="letterTextarea" class="materialize-textarea" name="body"></textarea>
+            <label for="letterTextarea">Letter</label>
+          </div>
+        </div>
+
+        <!-- Submit input-->
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+
+      </form>
+    </div>
+
+  </div>
+  {% block javascript %}
+    <script>
+      $(function() {
+        $('#send-form').ajaxForm({
+          clearForm: true,
+          success: function(response) {
+            if (response.error){
+              $('#alert-error').text(response.message);
+              $('div#alert-error').css('display','block');
+            } else {
+              $('#alert-success').text(response.message);
+              $('div#alert-success').css('display','block');
+            }
+
+          }
+        });
+        $('div.alert').on( "click", function() {
+          $("div.alert").hide();
+        });
+      });
+    </script>
+  {% endblock %}
+
+{% endblock %}
