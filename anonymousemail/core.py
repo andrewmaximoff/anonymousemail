@@ -8,7 +8,16 @@ from flask import (
     redirect,
     jsonify
 )
+import sentry_sdk
+from sentry_sdk.integrations.flask import \
+    FlaskIntegration
+
 from .utils import notify
+
+sentry_sdk.init(
+    dsn=os.environ['SENTRY_DSN'],
+    integrations=[FlaskIntegration()]
+)
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('APP_SECRET', 'CHANGEME')
