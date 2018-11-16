@@ -10,11 +10,11 @@ API_KEY = os.environ['SENDGRID_API_KEY']
 sg = sendgrid.SendGridAPIClient(apikey=API_KEY)
 
 
-def notify(content, email_address):
-    from_address = Email('no-reply@mailsender.io', name="MailSender.io")
-    to_address = Email(email_address)
+def notify(subject, content, email_to, email_from):
+    from_address = Email(email_from, name="MailSender.io")
+    to_address = Email(email_to)
     content = Content('text/plain', str(content))
-    subject = 'Anonymous letter'
+    subject = subject
 
     mail = Mail(from_address, subject, to_address, content)
     response = sg.client.mail.send.post(request_body=mail.get())

@@ -22,24 +22,43 @@
     <div class="row">
       <form id="send-form" method="post">
 
-        <!-- Email input-->
+        <!-- Email-to input -->
         <div class="row">
           <div class="input-field col s12">
-            <input id="emailInput" type="email" class="validate" name="email">
-            <label for="emailInput">Email</label>
-            <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+            <input id="emailToInput" type="email" class="validate" name="emailTo" required="" aria-required="true">
+            <label for="emailToInput">Email to</label>
+            <span class="helper-text" data-error="Wrong email" data-success="right">Helper text</span>
+          </div>
+        </div>
+
+        <!-- Email-from input -->
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="emailFromInput" type="email" class="validate" name="emailFrom" required="" aria-required="true">
+            <label for="emailFromInput">Email from</label>
+            <span class="helper-text" data-error="Wrong email" data-success="right">Helper text</span>
+          </div>
+        </div>
+
+        <!-- Subject textarea -->
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="subjectTextarea" class="materialize-textarea validate" name="subject" data-length="120" required="" aria-required="true"></textarea>
+            <label for="subjectTextarea">Subject</label>
+            <span class="helper-text" data-error="Field cannot be empty" data-success="right">Helper text</span>
           </div>
         </div>
 
         <!-- Textarea -->
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="letterTextarea" class="materialize-textarea" name="body"></textarea>
-            <label for="letterTextarea">Letter</label>
+            <textarea id="letterTextarea" class="materialize-textarea validate" name="body" required="" aria-required="true"></textarea>
+            <label for="letterTextarea">Letter body</label>
+            <span class="helper-text" data-error="Field cannot be empty" data-success="right">Markdown is supported</span>
           </div>
         </div>
 
-        <!-- Submit input-->
+        <!-- Submit input -->
         <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
 
       </form>
@@ -48,6 +67,9 @@
   </div>
   {% block javascript %}
     <script>
+      $(document).ready(function() {
+        $('textarea#subjectTextarea').characterCounter();
+      });
       $(function() {
         $('#send-form').ajaxForm({
           clearForm: true,

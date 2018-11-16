@@ -12,7 +12,7 @@ from .utils import notify
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('APP_SECRET', 'CHANGEME')
-app.debug = os.environ.get('APP_SECRET', False)
+app.debug = os.environ.get('DEBUG', False)
 
 
 @app.route('/')
@@ -24,8 +24,19 @@ def index():
 def send_email():
     if request.method == 'POST':
         body = request.form['body']
-        email = request.form['email']
-        response = notify(body, email)
+        subject = request.form['subject']
+        email_to = request.form['emailTo']
+        email_from = request.form['emailFrom']
+
+        if not body or not subject or not email_from or not email_from:
+            return jsonify(
+                {
+                    'message': 'Fields cannot be empty!',
+                    'error': True,
+                }
+            )
+
+        response = notify(content=body, subject=subject, email_to=email_to, email_from=email_from)
 
         status_code = list(str(response.status_code))
 
