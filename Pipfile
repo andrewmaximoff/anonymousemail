@@ -8,6 +8,8 @@ sendgrid = "*"
 flask = "*"
 gunicorn = "*"
 sentry-sdk = {extras = ["flask"], version = "*"}
+raven = "*"
+blinker = "*"
 
 [dev-packages]
 ipython = "*"
