@@ -1,5 +1,9 @@
 import os
 
+import sentry_sdk
+
+
+from flask_wtf import CSRFProtect
 from flask import (
     Flask,
     render_template,
@@ -8,7 +12,6 @@ from flask import (
     redirect,
     jsonify
 )
-import sentry_sdk
 from sentry_sdk.integrations.flask import \
     FlaskIntegration
 
@@ -23,12 +26,15 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('APP_SECRET', 'CHANGEME')
 app.debug = os.environ.get('DEBUG', False)
 
+csrf = CSRFProtect(app)
+
 
 @app.route('/')
 def index():
     return redirect('/send')
 
 
+@csrf.exempt
 @app.route('/send', methods=["GET", "POST"])
 def send_email():
     if request.method == 'POST':

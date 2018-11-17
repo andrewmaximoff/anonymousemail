@@ -10,6 +10,7 @@ gunicorn = "*"
 sentry-sdk = {extras = ["flask"], version = "*"}
 raven = "*"
 blinker = "*"
+flask-wtf = "*"
 
 [dev-packages]
 ipython = "*"

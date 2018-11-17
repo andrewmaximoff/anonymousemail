@@ -58,6 +58,9 @@
           </div>
         </div>
 
+        <!-- CSRF TOKEN -->
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
         <!-- Submit input -->
         <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
 
