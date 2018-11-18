@@ -1,7 +1,7 @@
 import os
 
 import sentry_sdk
-
+import markdown
 
 from flask_wtf import CSRFProtect
 from flask import (
@@ -51,9 +51,20 @@ def send_email():
                 }
             )
 
-        response = notify(content=body, subject=subject, email_to=email_to, email_from=email_from)
+        # Replace newlines with <br> tags.
+        body = request.form['body']
+        body = '---NEWLINE---'.join(body.split('\n'))
 
-        status_code = list(str(response.status_code))
+        # Strip any HTML away.
+        body = Markup(body).striptags()
+        subject = Markup(subject).striptags()
+
+        body = markdown.markdown(body)
+        body = '<br>'.join(body.split('---NEWLINE---'))
+
+        sendgrid_response = notify(content=body, subject=subject, email_to=email_to, email_from=email_from)
+
+        status_code = list(str(sendgrid_response.status_code))
 
         if status_code[0] == '2':
             return jsonify(

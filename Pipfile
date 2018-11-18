@@ -11,6 +11,7 @@ sentry-sdk = {extras = ["flask"], version = "*"}
 raven = "*"
 blinker = "*"
 flask-wtf = "*"
+markdown = "*"
 
 [dev-packages]
 ipython = "*"

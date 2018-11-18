@@ -13,7 +13,7 @@ sg = sendgrid.SendGridAPIClient(apikey=API_KEY)
 def notify(subject, content, email_to, email_from):
     from_address = Email(email_from, name="MailSender.io")
     to_address = Email(email_to)
-    content = Content('text/plain', str(content))
+    content = Content('text/html', content)
     subject = subject
 
     mail = Mail(from_address, subject, to_address, content)
