@@ -29,13 +29,13 @@ def index():
     return redirect('/send')
 
 
-@app.route('/a/')
-def invitation_a():
+@app.route('/a/<username>')
+def invitation_a(username):
     return render_template('Cloud-OnBoard.html')
 
 
-@app.route('/v/')
-def invitation_v():
+@app.route('/v/<username>')
+def invitation_v(username):
     return render_template('Cloud-OnBoard-v.html')
 
 
