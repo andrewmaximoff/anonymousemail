@@ -29,6 +29,16 @@ def index():
     return redirect('/send')
 
 
+@app.route('/a/')
+def invitation_a():
+    return render_template('Cloud-OnBoard.html')
+
+
+@app.route('/v/')
+def invitation_v():
+    return render_template('Cloud-OnBoard-v.html')
+
+
 @app.route('/send', methods=["GET", "POST"])
 def send_email():
     if request.method == 'POST':
